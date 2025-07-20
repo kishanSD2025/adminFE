@@ -1,6 +1,8 @@
 import React from 'react';
 import { Form, Input, Button, Typography, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { useAppDispatch } from '@hooks/useAppDispatch';
+import { setCredentials } from '@features/auth/authSlice';
 
 const { Title, Text, Link } = Typography;
 
@@ -10,11 +12,24 @@ interface LoginFormValues {
   remember: boolean;
 }
 
-const LoginPage: React.FC = () => {
+interface LoginPageProps {
+  onLoginSuccess: () => void;
+}
+
+const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
   const [form] = Form.useForm();
+  const dispatch = useAppDispatch();
 
   const onFinish = (values: LoginFormValues) => {
     console.log('Login form submitted:', values);
+    
+    // Simulate login success
+    dispatch(setCredentials({
+      user: { id: '1', email: values.username },
+      token: 'mock-jwt-token'
+    }));
+    
+    onLoginSuccess();
   };
 
   return (
