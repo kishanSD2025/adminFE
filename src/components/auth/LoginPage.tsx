@@ -1,6 +1,6 @@
 import React from 'react';
-import { Form, Input, Button, Typography, Checkbox } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Form, Input, Button, Typography, Checkbox, Card } from 'antd';
+import { UserOutlined, LockOutlined, EyeInvisibleOutlined, EyeTwoTone, GlobalOutlined } from '@ant-design/icons';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { setCredentials } from '@features/auth/authSlice';
 
@@ -33,24 +33,24 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
   };
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center p-4">
+    <div className="min-h-screen relative flex items-center justify-center p-4 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       {/* Dynamic Background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900"></div>
+      <div className="absolute inset-0 overflow-hidden opacity-60">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-purple-600/20 to-indigo-600/20"></div>
         
         {/* Animated Background Elements */}
-        <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-          <div className="absolute top-3/4 right-1/4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000"></div>
-          <div className="absolute bottom-1/4 left-1/2 w-56 h-56 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-2000"></div>
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
+          <div className="absolute top-3/4 right-1/4 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse delay-1000"></div>
+          <div className="absolute bottom-1/4 left-1/2 w-56 h-56 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse delay-2000"></div>
         </div>
 
         {/* Floating Particles */}
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 opacity-40">
           {[...Array(20)].map((_, i) => (
             <div
               key={i}
-              className="absolute bg-white rounded-full opacity-10 animate-float"
+              className="absolute bg-white rounded-full opacity-20 animate-float"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
@@ -66,104 +66,107 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
 
       {/* Login Form Container */}
       <div className="relative z-10 w-full max-w-md">
-        {/* WordPress-style Logo/Brand Area */}
+        {/* Brand Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-white rounded-full shadow-lg mb-6">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center">
-              <UserOutlined className="text-white text-xl" />
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-2xl shadow-lg mb-6 border border-gray-100">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
+              <GlobalOutlined className="text-white text-lg" />
             </div>
           </div>
-          <Title level={1} className="text-white text-4xl font-light mb-2">
-            MyApp
+          <Title level={1} className="text-gray-800 text-3xl font-bold mb-2">
+            Welcome Back
           </Title>
-          <Text className="text-blue-100 text-lg">
-            Powered by React & Ant Design
+          <Text className="text-gray-600 text-base">
+            Sign in to your WordPress dashboard
           </Text>
         </div>
 
         {/* Login Form */}
-        <div className="bg-white rounded-lg shadow-2xl p-8">
-          <div className="text-center mb-6">
-            <Title level={3} className="text-gray-800 mb-2 font-normal">
-              Log In
-            </Title>
-          </div>
-
+        <Card className="shadow-xl border-0 rounded-2xl backdrop-blur-sm bg-white/95">
+          <div className="p-2">
           <Form
             form={form}
             name="login"
             onFinish={onFinish}
             layout="vertical"
             size="large"
-            className="space-y-4"
+            className="space-y-2"
           >
             <Form.Item
               name="username"
+              label={<span className="text-gray-700 font-medium">Username or Email</span>}
               rules={[
-                { required: true, message: 'Please input your username or email address!' }
+                { required: true, message: 'Please enter your username or email' }
               ]}
             >
               <Input
                 prefix={<UserOutlined className="text-gray-400" />}
-                placeholder="Username or Email Address"
-                className="h-12 rounded-md border-gray-300 focus:border-blue-500"
+                placeholder="Enter your username or email"
+                className="h-12 rounded-xl border-gray-200 hover:border-blue-400 focus:border-blue-500 transition-colors"
               />
             </Form.Item>
 
             <Form.Item
               name="password"
-              rules={[{ required: true, message: 'Please input your password!' }]}
+              label={<span className="text-gray-700 font-medium">Password</span>}
+              rules={[{ required: true, message: 'Please enter your password' }]}
             >
               <Input.Password
                 prefix={<LockOutlined className="text-gray-400" />}
-                placeholder="Password"
-                className="h-12 rounded-md border-gray-300 focus:border-blue-500"
+                placeholder="Enter your password"
+                iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                className="h-12 rounded-xl border-gray-200 hover:border-blue-400 focus:border-blue-500 transition-colors"
               />
             </Form.Item>
 
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between py-2">
               <Form.Item name="remember" valuePropName="checked" className="mb-0">
-                <Checkbox className="text-gray-600">
+                <Checkbox className="text-gray-600 hover:text-blue-600">
                   Remember Me
                 </Checkbox>
               </Form.Item>
+              <Button type="link" className="p-0 h-auto text-blue-600 hover:text-blue-700">
+                Forgot Password?
+              </Button>
             </div>
 
-            <Form.Item className="mb-4">
+            <Form.Item className="mb-6 pt-2">
               <Button
                 type="primary"
                 htmlType="submit"
-                className="w-full h-12 bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 rounded-md font-medium text-lg shadow-lg"
+                className="w-full h-12 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 rounded-xl font-semibold text-base shadow-lg hover:shadow-xl transition-all duration-200"
               >
-                Log In
+                Sign In
               </Button>
             </Form.Item>
           </Form>
 
-          <div className="text-center space-y-4">
-            <Link href="#" className="text-blue-600 hover:text-blue-700 text-sm">
-              Lost your password?
-            </Link>
-            
-            <div className="pt-4 border-t border-gray-200">
-              <Text className="text-gray-600 text-sm">
-                ← <Link href="#" className="text-blue-600 hover:text-blue-700">
-                  Back to MyApp
-                </Link>
-              </Text>
-            </div>
+          <div className="text-center pt-4 border-t border-gray-100">
+            <Text className="text-gray-500 text-sm">
+              Don't have an account? 
+              <Link href="#" className="text-blue-600 hover:text-blue-700 ml-1 font-medium">
+                Sign up
+              </Link>
+            </Text>
           </div>
-        </div>
+          </div>
+        </Card>
 
-        {/* Footer Links */}
-        <div className="text-center mt-8 space-x-4">
-          <Link href="#" className="text-blue-200 hover:text-white text-sm">
-            Privacy Policy
-          </Link>
-          <span className="text-blue-300">•</span>
-          <Link href="#" className="text-blue-200 hover:text-white text-sm">
-            Terms of Service
-          </Link>
+        {/* Footer */}
+        <div className="text-center mt-8">
+          <div className="flex justify-center items-center gap-6 text-sm">
+            <Link href="#" className="text-gray-500 hover:text-gray-700 transition-colors">
+              Privacy Policy
+            </Link>
+            <div className="w-1 h-1 bg-gray-300 rounded-full"></div>
+            <Link href="#" className="text-gray-500 hover:text-gray-700 transition-colors">
+              Terms of Service
+            </Link>
+            <div className="w-1 h-1 bg-gray-300 rounded-full"></div>
+            <Link href="#" className="text-gray-500 hover:text-gray-700 transition-colors">
+              Help
+            </Link>
+          </div>
         </div>
       </div>
     </div>
