@@ -27,7 +27,9 @@ import {
   HeartOutlined,
   TrophyOutlined,
   RocketOutlined,
-  ThunderboltOutlined
+  ThunderboltOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined
 } from '@ant-design/icons';
 
 const { Header, Sider, Content } = Layout;
