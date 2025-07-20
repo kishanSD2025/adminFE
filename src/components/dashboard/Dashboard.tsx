@@ -42,7 +42,7 @@ import {
   ClockCircleOutlined,
   StarOutlined,
   FireOutlined,
-  TrendingUpOutlined
+  RiseOutlined
 } from '@ant-design/icons';
 
 const { Header, Sider, Content } = Layout;
@@ -545,7 +545,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
                 <StatCard
                   title="Bounce Rate"
                   value="32.5%"
-                  icon={<TrendingUpOutlined className="text-xl text-white" />}
+                  icon={<RiseOutlined className="text-xl text-white" />}
                   trend="down"
                   trendValue="5%"
                   color="bg-gradient-to-br from-orange-500 to-orange-600"
